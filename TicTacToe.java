@@ -1,72 +1,22 @@
-import java.util.Random;
+import java.util.Scanner;
 
 public class TicTacToe {
 
-    static char[][] board = new char[3][3];
-
-    static char playerSymbol;
-    static char computerSymbol;
-    static String currentTurn;
-
     public static void main(String[] args) {
 
-        initializeBoard();
+        int slot = getUserSlot();
 
-        toss();
-
-        printBoard();
+        System.out.println("Slot entered: " + slot);
     }
 
-    static void initializeBoard() {
+    static int getUserSlot() {
 
-        for (int row = 0; row < 3; row++) {
+        Scanner sc = new Scanner(System.in);
 
-            for (int col = 0; col < 3; col++) {
+        System.out.print("Enter slot number (1-9): ");
 
-                board[row][col] = '-';
-            }
-        }
-    }
+        int slot = sc.nextInt();
 
-    static void toss() {
-
-        Random random = new Random();
-
-        int result = random.nextInt(2);   // 0 or 1
-
-        if (result == 0) {
-
-            System.out.println("Player won toss!");
-            playerSymbol = 'X';
-            computerSymbol = 'O';
-            currentTurn = "Player";
-
-        } else {
-
-            System.out.println("Computer won toss!");
-            playerSymbol = 'O';
-            computerSymbol = 'X';
-            currentTurn = "Computer";
-        }
-
-        System.out.println("Player Symbol: " + playerSymbol);
-        System.out.println("Computer Symbol: " + computerSymbol);
-        System.out.println("First Turn: " + currentTurn);
-    }
-
-    static void printBoard() {
-
-        System.out.println("-------------");
-
-        for (int row = 0; row < 3; row++) {
-
-            for (int col = 0; col < 3; col++) {
-
-                System.out.print("| " + board[row][col] + " ");
-            }
-
-            System.out.println("|");
-            System.out.println("-------------");
-        }
+        return slot;
     }
 }
