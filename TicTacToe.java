@@ -1,49 +1,36 @@
 public class TicTacToe {
 
-    // 3x3 board created
     static char[][] board = new char[3][3];
 
-    // Main method starts program
     public static void main(String[] args) {
 
-        initializeBoard();   // fill board with '-'
+        // sample test (fill board manually to test)
+        board[0][0] = 'X';
+        board[0][1] = 'O';
+        board[0][2] = 'X';
 
-        printBoard();        // display board
+        board[1][0] = 'X';
+        board[1][1] = 'O';
+        board[1][2] = 'X';
+
+        board[2][0] = 'O';
+        board[2][1] = 'X';
+        board[2][2] = 'O';
+
+        System.out.println(isDraw());
     }
 
-    // Fill all cells with '-'
-    static void initializeBoard() {
+    static boolean isDraw() {
 
-        for (int row = 0; row < 3; row++) {
+        for (int r = 0; r < 3; r++) {
+            for (int c = 0; c < 3; c++) {
 
-            for (int col = 0; col < 3; col++) {
-
-                board[row][col] = '-';
-
+                if (board[r][c] == '-') {
+                    return false; // still empty → not draw
+                }
             }
-
         }
 
+        return true; // no empty cells → draw
     }
-
-    // Print board properly
-    static void printBoard() {
-
-        System.out.println("-------------");
-
-        for (int row = 0; row < 3; row++) {
-
-            for (int col = 0; col < 3; col++) {
-
-                System.out.print("| " + board[row][col] + " ");
-
-            }
-
-            System.out.println("|");
-            System.out.println("-------------");
-
-        }
-
-    }
-
 }
