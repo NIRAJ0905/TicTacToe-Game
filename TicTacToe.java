@@ -1,82 +1,46 @@
-import java.util.Random;
-
 public class TicTacToe {
 
-    static char[][] board = {
-        {'-', '-', '-'},
-        {'-', '-', '-'},
-        {'-', '-', '-'}
-    };
-
-    static boolean isHumanTurn = true;
-    static boolean gameOver = false;
-
-    static char humanSymbol = 'X';
-    static char computerSymbol = 'O';
+    static char[][] board = new char[3][3];
 
     public static void main(String[] args) {
 
-        while (!gameOver) {
+        board[0][0] = 'X';
+        board[0][1] = 'X';
+        board[0][2] = 'X';
 
-            if (isHumanTurn) {
-
-                System.out.println("Human Turn");
-
-                // sample move (will be replaced in next UC)
-                placeMove(0, 0, humanSymbol);
-
-            } else {
-
-                System.out.println("Computer Turn");
-
-                computerMove();
-            }
-
-            printBoard();
-
-            // TEMP: stop after one loop (until UC9 win/draw comes)
-            gameOver = true;
-
-            isHumanTurn = !isHumanTurn; // switch turn
-        }
+        System.out.println(hasWon('X'));
     }
 
-    static void computerMove() {
-
-        Random random = new Random();
-
-        while (true) {
-
-            int slot = random.nextInt(9) + 1;
-
-            int row = (slot - 1) / 3;
-            int col = (slot - 1) % 3;
-
-            if (board[row][col] == '-') {
-
-                placeMove(row, col, computerSymbol);
-                break;
-            }
-        }
-    }
-
-    static void placeMove(int row, int col, char symbol) {
-        board[row][col] = symbol;
-    }
-
-    static void printBoard() {
-
-        System.out.println("-------------");
+    static boolean hasWon(char symbol) {
 
         for (int i = 0; i < 3; i++) {
-
-            for (int j = 0; j < 3; j++) {
-
-                System.out.print("| " + board[i][j] + " ");
+            if (board[i][0] == symbol &&
+                board[i][1] == symbol &&
+                board[i][2] == symbol) {
+                return true;
             }
-
-            System.out.println("|");
-            System.out.println("-------------");
         }
+     
+        for (int j = 0; j < 3; j++) {
+            if (board[0][j] == symbol &&
+                board[1][j] == symbol &&
+                board[2][j] == symbol) {
+                return true;
+            }
+        }
+    
+        if (board[0][0] == symbol &&
+            board[1][1] == symbol &&
+            board[2][2] == symbol) {
+            return true;
+        }
+       
+        if (board[0][2] == symbol &&
+            board[1][1] == symbol &&
+            board[2][0] == symbol) {
+            return true;
+        }
+     
+        return false;
     }
 }
