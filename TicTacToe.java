@@ -8,13 +8,37 @@ public class TicTacToe {
         {'-', '-', '-'}
     };
 
+    static boolean isHumanTurn = true;
+    static boolean gameOver = false;
+
+    static char humanSymbol = 'X';
     static char computerSymbol = 'O';
 
     public static void main(String[] args) {
 
-        computerMove();
+        while (!gameOver) {
 
-        printBoard();
+            if (isHumanTurn) {
+
+                System.out.println("Human Turn");
+
+                // sample move (will be replaced in next UC)
+                placeMove(0, 0, humanSymbol);
+
+            } else {
+
+                System.out.println("Computer Turn");
+
+                computerMove();
+            }
+
+            printBoard();
+
+            // TEMP: stop after one loop (until UC9 win/draw comes)
+            gameOver = true;
+
+            isHumanTurn = !isHumanTurn; // switch turn
+        }
     }
 
     static void computerMove() {
@@ -23,31 +47,17 @@ public class TicTacToe {
 
         while (true) {
 
-            int slot = random.nextInt(9) + 1;  // 1 to 9
+            int slot = random.nextInt(9) + 1;
 
-            int row = getRowFromSlot(slot);
-            int col = getColFromSlot(slot);
+            int row = (slot - 1) / 3;
+            int col = (slot - 1) % 3;
 
-            if (isValidMove(row, col)) {
+            if (board[row][col] == '-') {
 
                 placeMove(row, col, computerSymbol);
                 break;
             }
         }
-    }
-
-    static int getRowFromSlot(int slot) {
-        return (slot - 1) / 3;
-    }
-
-    static int getColFromSlot(int slot) {
-        return (slot - 1) % 3;
-    }
-
-    static boolean isValidMove(int row, int col) {
-        return (row >= 0 && row <= 2 &&
-                col >= 0 && col <= 2 &&
-                board[row][col] == '-');
     }
 
     static void placeMove(int row, int col, char symbol) {
